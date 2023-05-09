@@ -1,5 +1,12 @@
 # Proxy Switcher
-Set systemwide proxy in XFCE
+Set systemwide proxy in XFCE for Arch-based distributions
+
+### Requirements
+1. dbus
+
+```sh
+$ sudo pacman -S dbus
+```
 
 ### Installation
 

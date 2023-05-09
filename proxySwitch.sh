@@ -3,7 +3,7 @@ function turnOff() {
   gsettings set org.gnome.system.proxy mode 'none' ;
   grep PATH /etc/environment > temp.txt;
   cat temp.txt > /etc/environment;
-  printf "" > /etc/apt/apt.conf.d/95proxies;
+  printf "" > /etc/pacman.d/proxy.conf;
   rm -rf temp.txt;
 }
 
@@ -16,21 +16,20 @@ function turnOn(){
   grep PATH /etc/environment > temp.txt;
   printf \
   "http_proxy=http://$1:$2/\n\
-  https_proxy=http://$1:$2/\n\
-  ftp_proxy=http://$1:$2/\n\
-  no_proxy=\"localhost,127.0.0.1,localaddress,.localdomain.com\"\n\
-  HTTP_PROXY=http://$1:$2/\n\
-  HTTPS_PROXY=http://$1:$2/\n\
-  FTP_PROXY=http://$1:$2/\n\
-  NO_PROXY=\"localhost,127.0.0.1,localaddress,.localdomain.com\"\n" >> temp.txt;
+https_proxy=http://$1:$2/\n\
+ftp_proxy=http://$1:$2/\n\
+no_proxy=\"localhost,127.0.0.1,localaddress,.localdomain.com\"\n\
+HTTP_PROXY=http://$1:$2/\n\
+HTTPS_PROXY=http://$1:$2/\n\
+FTP_PROXY=http://$1:$2/\n\
+NO_PROXY=\"localhost,127.0.0.1,localaddress,.localdomain.com\"\n" >> temp.txt;
 
   cat temp.txt > /etc/environment;
-
 
   printf \
   "Acquire::http::proxy \"http://$1:$2/\";\n\
   Acquire::ftp::proxy \"ftp://$1:$2/\";\n\
-  Acquire::https::proxy \"https://$1:$2/\";\n" > /etc/apt/apt.conf.d/95proxies;
+  Acquire::https::proxy \"https://$1:$2/\";\n" > /etc/pacman.d/proxy.conf;
 
   rm -rf temp.txt;
 }
